@@ -161,8 +161,8 @@ namespace LinqExercise.Models
 		//1
 		public Monkey SearchMonkeyByName(string name)
 		{
-
-			throw new NotImplementedException("not implemented yet");
+			return this.Monkeys.SingleOrDefault(m => m.Name == name);
+			
 		}
 		//2
 		public List<Monkey> GetAllMonkeysPerLocation(string location)
@@ -178,7 +178,7 @@ namespace LinqExercise.Models
 		public List<Monkey> SortByLocattionAndName()
 		{
 
-			throw new NotImplementedException("not implemented yet");
+			return this.Monkeys.OrderBy(m => m.Name).ThenBy(m => m.Location).ToList();
 		}
 		//5
 		public Monkey SearchMonkeyByNameQuery(string name)

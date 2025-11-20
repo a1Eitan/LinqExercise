@@ -28,7 +28,7 @@ namespace LinqExercise
             List<int> numbers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             List<int> evens = FilterList(numbers, IsEven);
             List<int> fiveOrMore = FilterList(numbers, x => x >= 5);
-           
+
             #region שימוש בFUNC במקום פונקציה רגילה
             Func<List<int>, Predicate<int>, List<int>> FilterFunc = (lst, condition) =>
             {
@@ -44,15 +44,23 @@ namespace LinqExercise
                     return result;
                 }
             };
-			#endregion
+            #endregion
+            evens = FilterFunc(numbers, x => x % 2 == 0);
+            #region שימוש בEXTENSIONS
+            //example of using extension methods
+            int a = 8;
+            a.TalIsTheBest();
 
-			#region שימוש בEXTENSIONS
-			//example of using extension methods
+            numbers.YudAlef();
+            int[] arr = new int[5];
+            arr.YudAlef();
 
-			#endregion
 
-			#region שימוש בLINQ
-			List<Student> students = new List<Student>()
+
+            #endregion
+
+            #region שימוש בLINQ
+            List<Student> students = new List<Student>()
             {
                 new Student() { Name = "Alice", Age = 20, grade = 90, ClassName = "Math" },
                 new Student() { Name = "Bob", Age = 22, grade = 85, ClassName = "Science" },
@@ -60,18 +68,33 @@ namespace LinqExercise
                 new Student() { Name = "David", Age = 23, grade = 80, ClassName = "History" },
                 new Student() { Name = "Eve", Age = 20, grade = 88, ClassName = "Science" },
                 new Student() { Name = "Frank", Age = 24, grade = 92, ClassName = "Math" },
-                };
+            };
 
-			#region דוגמאות LINQ
+            #region דוגמאות LINQ
 
-			//---Linq Methods---
-			//Max
-			//FirstOrDefault
-			//SingleOrDefault
-			//where
+            //---Linq Methods---
+            //Max
+            int maxGrade = students.Max((st) => st.grade);
+            Console.WriteLine(maxGrade);
+            double avg = students.Average(st => st.grade);
+            //FirstOrDefault
+            var stu = students.FirstOrDefault(st => st.Age > 23);
+            //SingleOrDefault
+            stu = students.SingleOrDefault(st => maxGrade == 100);
+            //where
+            List<Student> mathStudents = students.Where(student => student.ClassName == "Math").ToList();
             //where Query
-			//OrderBy
-			//Any
+            var ls=from student in mathStudents
+                   where student.Name == "Alice"
+                   select student.grade;
+
+
+            //OrderBy
+            students = students.OrderBy(x => x.grade).ToList();
+
+            //Any
+            bool found = students.Any(x => x.grade < 60);
+            found = students.All(x=>x.grade > 60);
 			//Select
             
 

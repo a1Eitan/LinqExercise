@@ -15,7 +15,7 @@ namespace LinqExercise.Extentions
 
 		public static void YudAlef<T>(this IEnumerable<T> list)
 		{
-			Console.WriteLine("Yud Alef 7 Metro West is the best course ever!");
+			Console.WriteLine("Yud Alef 10 Metro West is the best Megama ever!");
 		}
 	}
 }
