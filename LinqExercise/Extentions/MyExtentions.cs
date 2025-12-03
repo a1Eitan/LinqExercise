@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LinqExercise.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,5 +18,14 @@ namespace LinqExercise.Extentions
 		{
 			Console.WriteLine("Yud Alef 10 Metro West is the best Megama ever!");
 		}
+		public static int MaxBy<T>(this IEnumerable<T> lst, Func<T, int> parameter)
+		{
+			int max = int.MinValue;
+			foreach (var item in lst)
+			{
+				max = Math.Max(max, parameter(item));
+			}
+			return max;
+        }
 	}
 }

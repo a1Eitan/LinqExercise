@@ -69,40 +69,41 @@ namespace LinqExercise
                 new Student() { Name = "Eve", Age = 20, grade = 88, ClassName = "Science" },
                 new Student() { Name = "Frank", Age = 24, grade = 92, ClassName = "Math" },
             };
-
+            int maxAge = MyExtentions.MaxBy(students, student => student.Age);
+            int maxGrade = MyExtentions.MaxBy(students, student => student.grade);
+            maxAge = students.MaxBy(student => student.Age);
+            maxGrade = students.MaxBy(student => student.grade);
             #region דוגמאות LINQ
 
             //---Linq Methods---
             //Max
-            int maxGrade = students.Max((st) => st.grade);
-            Console.WriteLine(maxGrade);
-            double avg = students.Average(st => st.grade);
+            maxGrade = students.Max(student => student.grade);
             //FirstOrDefault
-            var stu = students.FirstOrDefault(st => st.Age > 23);
+            var student1 = students.FirstOrDefault(student => student.Age > 23); 
             //SingleOrDefault
-            stu = students.SingleOrDefault(st => maxGrade == 100);
+            student1 = students.SingleOrDefault(student => student.Age == 24);
             //where
-            List<Student> mathStudents = students.Where(student => student.ClassName == "Math").ToList();
+            List<Student> ls = students.Where(s => s.grade > 90 && s.grade <= 100).ToList();
             //where Query
-            var ls=from student in mathStudents
-                   where student.Name == "Alice"
-                   select student.grade;
-
 
             //OrderBy
-            students = students.OrderBy(x => x.grade).ToList();
+            students = students.OrderBy(s => s.grade).ThenBy(s => s.Age).ToList();
+            //Any 
+            bool isHundred = students.Any(s => s.grade == 100);
+            bool didPass = students.All(s => s.grade > 55);
+            //Select
+            var person = students.Where(s => s.grade > 90).Select(s => new {s.Name, s.ClassName});
+            foreach (var p in person)
+            {
+                Console.WriteLine(p.Name + ", " + p.ClassName);
+            }
 
-            //Any
-            bool found = students.Any(x => x.grade < 60);
-            found = students.All(x=>x.grade > 60);
-			//Select
-            
 
-			#endregion
-			#endregion
+            #endregion
+            #endregion
 
-			#region Test Monkey Exercise
-			//השלמת תרגיל הקופים מהחומר הנלמד
+            #region Test Monkey Exercise
+            //השלמת תרגיל הקופים מהחומר הנלמד
             MonkeyList monkeys = new MonkeyList(); // יצירת אובייקט של רשימת הקופים
 
             try
@@ -124,7 +125,7 @@ namespace LinqExercise
                 sortedMonkeys.ForEach(m => Console.WriteLine($"{m.Location} - {m.Name}"));
 
                 // 5. חיפוש קוף לפי שם (שימוש ב-LINQ)
-                Monkey monkeyByNameQuery = monkeys.SearchMonkeyByNameQuery("Capuchin Monkey");
+                Monkey monkeyByNameQuery = (Monkey)monkeys.SearchMonkeyByNameQuery("Capuchin Monkey");
                 Console.WriteLine(monkeyByNameQuery);
 
                 // 6. הדפסת כל הקופים לפי מיקום (שימוש ב-LINQ)
